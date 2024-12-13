@@ -1,5 +1,10 @@
 import { SignUp } from "@clerk/nextjs";
 
 export default function Page() {
-  return <SignUp />;
+  return (
+    <SignUp
+      fallbackRedirectUrl={"/api/auth/create-account"}
+      forceRedirectUrl={"/api/auth/create-account"}
+    />
+  );
 }

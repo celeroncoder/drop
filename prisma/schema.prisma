@@ -8,11 +8,16 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id String @id @default(cuid())
+
+  // for clerk
+  authId String @unique
+
+  name  String?
+  email String  @unique
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  email     String   @unique
-  name      String?
   files     File[]
 }
 
