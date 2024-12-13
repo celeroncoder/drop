@@ -30,3 +30,11 @@ export async function createFile({
 
   return dbFile;
 }
+
+export async function getFiles({ authId }: { authId: string }) {
+  const dbFiles = await prisma.file.findMany({
+    where: { user: { authId } },
+  });
+
+  return dbFiles;
+}

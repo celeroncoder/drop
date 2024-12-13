@@ -22,6 +22,7 @@ export function ImageDropzone() {
 
   return (
     <UploadDropzone
+      className="mb-4"
       endpoint="imageUploader"
       onClientUploadComplete={(res) => handleUpload(res)}
       onUploadError={(error: Error) => {

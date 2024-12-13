@@ -1,3 +1,4 @@
+import ImageGrid from "@/components/image-grid";
 import { ImageDropzone } from "@/components/upload";
 import { UserButton } from "@clerk/nextjs";
 
@@ -9,6 +10,8 @@ export default function Home() {
       </div>
 
       <ImageDropzone />
+
+      <ImageGrid />
     </main>
   );
 }
