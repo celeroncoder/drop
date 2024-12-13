@@ -1,15 +1,15 @@
 "use client";
 
-import { UploadButton, UploadDropzone } from "@/utils/uploadthing";
-import { useUser } from "@clerk/nextjs";
+import { UploadDropzone } from "@/utils/uploadthing";
+import { UserButton } from "@clerk/nextjs";
 
 export default function Home() {
-  const { isLoaded, user } = useUser();
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      {isLoaded && user && (
-        <p className="text-2xl mb-10">hey👋 {user.fullName}</p>
-      )}
+      <div className="border rounded-full mb-4">
+        <UserButton showName />
+      </div>
+
       <UploadDropzone
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
