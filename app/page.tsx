@@ -1,6 +1,4 @@
-"use client";
-
-import { UploadDropzone } from "@/utils/uploadthing";
+import { ImageDropzone } from "@/components/upload";
 import { UserButton } from "@clerk/nextjs";
 
 export default function Home() {
@@ -10,18 +8,7 @@ export default function Home() {
         <UserButton showName />
       </div>
 
-      <UploadDropzone
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      />
+      <ImageDropzone />
     </main>
   );
 }
