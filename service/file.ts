@@ -23,6 +23,7 @@ export async function createFile({
       key: file.key,
       url: file.url,
       type: file.type,
+      name: file.name,
     },
   });
 
