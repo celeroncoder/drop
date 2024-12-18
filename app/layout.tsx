@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
@@ -8,11 +8,7 @@ import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { Toaster } from "@/components/ui/toaster";
 import { LoaderPinwheelIcon } from "lucide-react";
 import { ThemeProvider } from "@/components/theme-provider";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { QueryProvider } from "@/components/query-provider";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -31,8 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`${geistMono.variable} antialiased`}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${geistMono.variable} antialiased font-mono`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -45,17 +41,19 @@ export default function RootLayout({
               </div>
             </ClerkLoading>
             <ClerkLoaded>
-              <NextSSRPlugin
-                /**
-                 * The `extractRouterConfig` will extract **only** the route configs
-                 * from the router to prevent additional information from being
-                 * leaked to the client. The data passed to the client is the same
-                 * as if you were to fetch `/api/uploadthing` directly.
-                 */
-                routerConfig={extractRouterConfig(ourFileRouter)}
-              />
-              {children}
-              <Toaster />
+              <QueryProvider>
+                <NextSSRPlugin
+                  /**
+                   * The `extractRouterConfig` will extract **only** the route configs
+                   * from the router to prevent additional information from being
+                   * leaked to the client. The data passed to the client is the same
+                   * as if you were to fetch `/api/uploadthing` directly.
+                   */
+                  routerConfig={extractRouterConfig(ourFileRouter)}
+                />
+                {children}
+                <Toaster />
+              </QueryProvider>
             </ClerkLoaded>
           </ThemeProvider>
         </body>

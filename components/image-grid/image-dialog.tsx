@@ -11,9 +11,15 @@ import React from "react";
 import { File } from "@prisma/client";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Button } from "../ui/button";
-import { DownloadIcon, Loader2, Trash2Icon } from "lucide-react";
+import {
+  DownloadIcon,
+  Loader2,
+  LoaderPinwheelIcon,
+  Trash2Icon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from "../ui/skeleton";
 
 export function ImageDialog({
   trigger,
@@ -67,11 +73,11 @@ export function ImageDialog({
           <DialogTitle>{file.name}</DialogTitle>
         </DialogHeader>
 
-        <div className="border border-dashed border-black p-2">
+        <div className="border border-dashed border-muted-foreground p-2">
           {!isImageLoaded && (
-            <div className="width-full h-auto aspect-square flex items-center justify-center rounded-lg bg-gray-100 animate-pulse">
-              <Loader2 className="size-8 animate-spin" />
-            </div>
+            <Skeleton className="width-full h-auto aspect-square flex items-center justify-center rounded-lg">
+              <LoaderPinwheelIcon className="size-8 animate-spin text-muted-foreground" />
+            </Skeleton>
           )}
           <img
             onLoad={() => setIsImageLoaded(true)}

@@ -4,6 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { createFile } from "@/service/file";
 import { UploadDropzone } from "@/utils/uploadthing";
 import { useAuth } from "@clerk/nextjs";
+import { useQueryClient } from "react-query";
 import { ClientUploadedFileData } from "uploadthing/types";
 
 export function ImageDropzone() {
@@ -11,9 +12,10 @@ export function ImageDropzone() {
   if (!userId) return null;
 
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const handleUpload = async (
-    res: ClientUploadedFileData<{ uploadedBy: string | null }>[],
+    res: ClientUploadedFileData<{ uploadedBy: string | null }>[]
   ) => {
     for (const file of res) {
       await createFile({
@@ -22,6 +24,7 @@ export function ImageDropzone() {
       });
     }
 
+    void queryClient.invalidateQueries(["files", userId]);
     toast({
       title: "Successfully uploaded",
       description: "Your files have been uploaded",
