@@ -36,7 +36,7 @@ export function ImageDialog({
 
   const handleDownload = async () => {
     try {
-      toast({ title: `Downloading ${file.name}...` });
+      toast({ description: `Downloading ${file.name}...` });
       const response = await fetch(fileUrl, { mode: "cors" }); // Ensure cross-origin is allowed
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -52,13 +52,14 @@ export function ImageDialog({
       document.body.removeChild(link);
 
       toast({
-        title: `${file.name} downloaded successfully!`,
+        description: `${file.name} downloaded successfully!`,
         variant: "default",
       });
     } catch (error) {
       console.error("Error downloading the file:", error);
       toast({
-        title: `Error downloading ${file.name}!`,
+        title: "Uh Oh! Some error occured!",
+        description: `Error downloading ${file.name}!`,
         variant: "destructive",
       });
     } finally {
@@ -94,7 +95,7 @@ export function ImageDialog({
         <DialogFooter className="justify-end">
           <Button variant={"secondary"} className="flex items-center gap-2">
             <Trash2Icon className="size-4 text-red-400" />
-            <span className="mb-px">Delete</span>
+            <span className="mt-[0.125rem]">Delete</span>
           </Button>
           <Button
             disabled={isDownloading}
@@ -107,7 +108,7 @@ export function ImageDialog({
             ) : (
               <DownloadIcon className="size-4" />
             )}
-            <span className="mb-px">Download</span>
+            <span className="mt-[0.125rem]">Download</span>
           </Button>
         </DialogFooter>
       </DialogContent>
