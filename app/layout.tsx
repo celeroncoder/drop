@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { Toaster } from "@/components/ui/toaster";
+import { LoaderPinwheelIcon } from "lucide-react";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,20 +32,32 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <NextSSRPlugin
-            /**
-             * The `extractRouterConfig` will extract **only** the route configs
-             * from the router to prevent additional information from being
-             * leaked to the client. The data passed to the client is the same
-             * as if you were to fetch `/api/uploadthing` directly.
-             */
-            routerConfig={extractRouterConfig(ourFileRouter)}
-          />
-          {children}
-          <Toaster />
+        <body className={`${geistMono.variable} antialiased`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ClerkLoading>
+              <div className="flex min-h-screen w-full items-center justify-center overflow-hidden">
+                <LoaderPinwheelIcon className="size-10 stroke-2 animate-spin" />
+              </div>
+            </ClerkLoading>
+            <ClerkLoaded>
+              <NextSSRPlugin
+                /**
+                 * The `extractRouterConfig` will extract **only** the route configs
+                 * from the router to prevent additional information from being
+                 * leaked to the client. The data passed to the client is the same
+                 * as if you were to fetch `/api/uploadthing` directly.
+                 */
+                routerConfig={extractRouterConfig(ourFileRouter)}
+              />
+              {children}
+              <Toaster />
+            </ClerkLoaded>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

@@ -20,38 +20,42 @@ export default async function ImageGrid() {
   if (!files) return <div>no files upload some!</div>;
 
   return (
-    <div className="flex items-center justify-center flex-col">
-      <p className="text-xl mb-2">Uploaded Images...</p>
-      <div className="grid grid-cols-3 gap-4 p-10 border-t">
-        {files.map((file) => (
-          <ContextMenu key={file.id}>
-            <ContextMenuTrigger>
-              <ImageDialog
-                file={file}
-                trigger={
-                  <Card className="hover:scale-105 duration-200 hover:shadow-lg">
-                    <CardContent className="p-2">
-                      <Image
-                        src={`https://utfs.io/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/${file.key}`}
-                        alt={file.url}
-                        width={150}
-                        height={150}
-                        typeof={file.type}
-                        className="rounded-lg aspect-square border-dotted"
-                      />
-                    </CardContent>
-                  </Card>
-                }
-              />
-            </ContextMenuTrigger>
-            <ContextMenuContent>
-              <ContextMenuItem className="cursor-pointer">
-                <Trash2Icon className="size-4 mr-2 text-red-500" /> Delete
-              </ContextMenuItem>
-              <DownloadMenuItem file={file} />
-            </ContextMenuContent>
-          </ContextMenu>
-        ))}
+    <div className="flex items-center justify-center flex-col border-x-2">
+      <div className="flex items-center justify-center border-y-2 py-4 px-6 w-full">
+        <p className="text-md font-mono">Uploaded Images</p>
+      </div>
+      <div className="w-full px-6">
+        <div className="border-x-2 py-6">
+          <div className="border-y-2 flex flex-wrap items-center justify-center ">
+            {files.map((file) => (
+              <ContextMenu key={file.id}>
+                <ContextMenuTrigger className="h-full">
+                  <ImageDialog
+                    file={file}
+                    trigger={
+                      <div className="duration-200 border p-4 min-h-full">
+                        <Image
+                          src={`https://utfs.io/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/${file.key}`}
+                          alt={file.url}
+                          width={150}
+                          height={150}
+                          typeof={file.type}
+                          className="aspect-square"
+                        />
+                      </div>
+                    }
+                  />
+                </ContextMenuTrigger>
+                <ContextMenuContent className="rounded-none">
+                  <ContextMenuItem className="cursor-pointer">
+                    <Trash2Icon className="size-4 mr-2 text-red-500" /> Delete
+                  </ContextMenuItem>
+                  <DownloadMenuItem file={file} />
+                </ContextMenuContent>
+              </ContextMenu>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
