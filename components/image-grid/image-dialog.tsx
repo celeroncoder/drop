@@ -62,7 +62,7 @@ export function ImageDialog({
 
   return (
     <Dialog>
-      <DialogTrigger>{trigger}</DialogTrigger>
+      <DialogTrigger className="min-h-full pb-0">{trigger}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{file.name}</DialogTitle>
@@ -84,7 +84,7 @@ export function ImageDialog({
             typeof={file.type}
             className={cn(
               "rounded-lg aspect-square border-dotted",
-              !isImageLoaded && "hidden"
+              !isImageLoaded && "hidden",
             )}
           />
         </div>
