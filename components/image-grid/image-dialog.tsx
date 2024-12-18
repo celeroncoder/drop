@@ -13,7 +13,6 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { Button } from "../ui/button";
 import { DownloadIcon, Loader2, Trash2Icon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 
 export function ImageDialog({
@@ -68,7 +67,7 @@ export function ImageDialog({
           <DialogTitle>{file.name}</DialogTitle>
         </DialogHeader>
 
-        <div className="border border-dashed rounded-lg border-black p-2">
+        <div className="border border-dashed border-black p-2">
           {!isImageLoaded && (
             <div className="width-full h-auto aspect-square flex items-center justify-center rounded-lg bg-gray-100 animate-pulse">
               <Loader2 className="size-8 animate-spin" />
@@ -82,10 +81,7 @@ export function ImageDialog({
             width={500}
             height={500}
             typeof={file.type}
-            className={cn(
-              "rounded-lg aspect-square border-dotted",
-              !isImageLoaded && "hidden",
-            )}
+            className={cn("aspect-square", !isImageLoaded && "hidden")}
           />
         </div>
 

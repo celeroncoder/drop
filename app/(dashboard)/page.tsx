@@ -1,4 +1,5 @@
 import ImageGrid from "@/components/image-grid";
+import { ThemeToggle } from "@/components/mode-toggle";
 import { ImageDropzone } from "@/components/upload";
 import { UserButton } from "@clerk/nextjs";
 
@@ -8,7 +9,7 @@ export default function Home() {
       <header className="border-x-2 border-y-2 px-6">
         <div className="border-x-2 py-4">
           <div className="border-y-2 flex items-center justify-between px-4 py-2">
-            <p className="font-mono">drop</p>
+            <p className="font-mono font-semibold">drop</p>
             <UserButton showName />
           </div>
         </div>
@@ -17,7 +18,17 @@ export default function Home() {
       <div className="border-x-2 my-0 py-4 px-6">
         <ImageDropzone />
       </div>
+
       <ImageGrid />
+
+      <footer className="border-x-2 border-y-2 px-6">
+        <div className="border-x-2 py-4">
+          <div className="border-y-2 flex items-center justify-between px-4 py-2">
+            <p className="font-mono font-semibold">drop</p>
+            <ThemeToggle />
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
