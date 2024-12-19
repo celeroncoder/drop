@@ -1,6 +1,6 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
-import "./globals.css";
 import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
@@ -18,6 +18,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "drop",
   description: "drop stuff here...",
+  icons: {
+    icon: "/favicon.svg", // Specify the path to the SVG favicon
+    shortcut: "/favicon.svg", // Optional shortcut icon
+    apple: "/favicon.svg", // Optional Apple touch icon
+  },
 };
 
 export default function RootLayout({
